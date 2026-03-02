@@ -17,7 +17,9 @@ import {
   Rocket,
   Play,
   Star,
-  ExternalLink
+  ExternalLink,
+  ThumbsUp,
+  ThumbsDown
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -137,8 +139,51 @@ const FeatureSection = ({
   </section>
 );
 
+const USE_CASES: Record<string, any> = {
+  'For Sales Teams': {
+    testimonial: {
+      quote: "Scalelist is incredibly intuitive and user-friendly with seamless navigation. Their customer support is excellent and always responsive. Most importantly, I've yet to encounter even a 1% bounce rate—a testament to the platform's accuracy and reliability. Highly recommended!",
+      author: "Karlo Svrze",
+      role: "Senior Sales Manager EMEA at BD",
+      imageLabel: "KARLO SVRZE - SENIOR SALES MANAGER EMEA AT BD"
+    },
+    features: [
+      { title: "Verified Data Reps Trust", desc: "Stop fixing broken lists. Give your team accurate emails and mobile numbers so they can focus on closing, not research.", id: "01" },
+      { title: "Effortless Prospecting", desc: "Build lists instantly and sync them to your sequencer. No manual cleanup, no CSV hell—just pure outbound speed.", id: "02" },
+      { title: "Pay for Results, Not Fluff", desc: "Only pay for verified, reachable data. Scale your outbound volume without burning your budget on bad leads.", id: "03" }
+    ]
+  },
+  'For Outbound Agencies': {
+    testimonial: {
+      quote: "This is by far the easiest and cleanest UX of any solution I've used to export leads and enrich data. Simple and fast to use. Perfect for small to medium teams who want to start quickly. Verification is prioritised over volume, so also strong for protecting data, domains etc.",
+      author: "James Donaldson",
+      role: "Founder & Director at Zaapi",
+      imageLabel: "JAMES DONALDSON - FOUNDER & DIRECTOR AT ZAAPI"
+    },
+    features: [
+      { title: "More Replies for Your Clients", desc: "Better data equals more opens and positive replies. Deliver the meeting volume your clients expect and prove your ROI.", id: "01" },
+      { title: "Zero Domain Burn", desc: "Low bounce rates protect your reputation. Spend less time rotating domains or warming inboxes and more time scaling client campaigns.", id: "02" },
+      { title: "Protect Your Margins", desc: "Get premium data at the best price. Pay only for verified hits so you can stay profitable while delivering world-class results.", id: "03" }
+    ]
+  },
+  'For Founders': {
+    testimonial: {
+      quote: "Brilliant tool - loving it!",
+      author: "Wilfried Buiron",
+      role: "Founder & CEO at Zaapi",
+      imageLabel: "WILFRIED BUIRON - FOUNDER & CEO AT ZAAPI"
+    },
+    features: [
+      { title: "Test Audiences in 24 Hours", desc: "Build lists of thousands in seconds. Export verified data and start your first campaign the same day you launch a new idea.", id: "01" },
+      { title: "Find Your Early Adopters", desc: "Target by buying intent and tech stack. Reach the people who actually need your product, not just anyone in the market.", id: "02" },
+      { title: "Conserve Your Runway", desc: "Only pay for validated data. Keep your acquisition costs low and test new markets without burning cash on bad lists.", id: "03" }
+    ]
+  }
+};
+
 export default function App() {
-  const [activeTab, setActiveTab] = useState('Sales Teams');
+  const [activeTab, setActiveTab] = useState('For Sales Teams');
+  const currentCase = USE_CASES[activeTab];
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-blue-100 selection:text-blue-900">
@@ -212,7 +257,12 @@ export default function App() {
             <div className="absolute inset-0 bg-blue-600/5 blur-3xl rounded-full -z-10" />
             <div className="relative bg-white rounded-3xl shadow-2xl border border-gray-100 p-4">
               <div className="bg-gray-50 rounded-2xl aspect-video flex items-center justify-center relative group cursor-pointer overflow-hidden">
-                <ImagePlaceholder label="INTERACTIVE PRODUCT DEMO - HIGH-FIDELITY INTERFACE PREVIEW" className="w-full h-full border-0" />
+                <img 
+                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1280&q=80" 
+                  alt="Scalelist Dashboard Interface" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
                     <Play className="text-white w-8 h-8 fill-current ml-1" />
@@ -319,30 +369,93 @@ export default function App() {
         imageLabel="UI WINDOW SHOWING PROFESSIONAL PROFILES WITH DATA TAGS LIKE JOB TITLE, LINKEDIN URL, COMPANY NAME, INDUSTRY, AND MORE"
       />
 
-      {/* Competitor Comparison */}
-      <section className="py-24 bg-gray-900 text-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <a href="#" className="inline-flex items-center gap-2 text-blue-400 font-semibold hover:underline mb-16">
-            See how we perform against competitors.
-            <ArrowRight className="w-4 h-4" />
-          </a>
+      {/* Most Accurate Data Section */}
+      <section className="py-24 bg-[#0a0f1a] text-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <p className="text-blue-500 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+              JOIN 7,000+ COMPANIES USING SCALELIST
+            </p>
+            <h2 className="text-5xl md:text-7xl font-extrabold tracking-tight">
+              The most accurate data
+            </h2>
+          </div>
 
-          <div className="relative max-w-4xl mx-auto bg-gray-800 rounded-3xl p-8 md:p-12 border border-gray-700 shadow-2xl">
-            <div className="grid grid-cols-6 items-end gap-4 h-64 mb-8">
-              {[80, 71, 85, 75, 87, 98].map((val, i) => (
-                <div key={i} className="flex flex-col items-center gap-4">
-                  <span className="text-sm font-bold opacity-80">{val}%</span>
-                  <motion.div 
-                    initial={{ height: 0 }}
-                    whileInView={{ height: `${val}%` }}
-                    transition={{ duration: 1, delay: i * 0.1 }}
-                    className={`w-full rounded-t-lg ${i === 5 ? 'bg-blue-500' : 'bg-gray-600'}`}
-                  />
-                  <span className="text-[10px] font-bold uppercase tracking-wider opacity-40">
-                    {i === 5 ? 'SCALELIST' : `COMP ${i + 1}`}
-                  </span>
+          <div className="grid lg:grid-cols-12 gap-12 items-start">
+            {/* Left Card: Data Coverage */}
+            <div className="lg:col-span-7 bg-[#151b28] rounded-3xl p-8 md:p-12 border border-gray-800 shadow-2xl">
+              <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-6">
+                DATA COVERAGE
+              </p>
+              <div className="flex items-baseline gap-4 mb-4">
+                <h3 className="text-5xl font-extrabold">up to 95%</h3>
+                <p className="text-gray-400 text-sm">Verified emails + direct dials</p>
+              </div>
+              <a href="#" className="inline-flex items-center gap-2 text-blue-400 font-bold text-sm hover:underline mb-12">
+                See how we perform against competitors
+              </a>
+
+              <div className="grid grid-cols-6 items-end gap-3 h-48 mt-8">
+                {[
+                  { name: 'Apollo', val: 78 },
+                  { name: 'ZoomInfo', val: 69 },
+                  { name: 'Lusha', val: 83 },
+                  { name: 'Prospeo', val: 72 },
+                  { name: 'Fullenrich', val: 84 },
+                  { name: 'Scalelist', val: 95 }
+                ].map((item, i) => (
+                  <div key={i} className="flex flex-col items-center gap-2">
+                    <span className="text-[10px] font-bold text-gray-400">{item.val}%</span>
+                    <motion.div 
+                      initial={{ height: 0 }}
+                      whileInView={{ height: `${item.val}%` }}
+                      transition={{ duration: 1, delay: i * 0.1 }}
+                      className={`w-full rounded-t-sm ${item.name === 'Scalelist' ? 'bg-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.5)]' : 'bg-gray-700'}`}
+                    />
+                    <div className="h-10 flex items-start justify-center">
+                      <span className={`text-[9px] font-bold uppercase tracking-tighter text-center leading-tight ${item.name === 'Scalelist' ? 'text-blue-400' : 'text-gray-500'}`}>
+                        {item.name}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Side: Testimonials */}
+            <div className="lg:col-span-5">
+              <h3 className="text-xl font-bold mb-8 text-white">Sales Teams Winning with Scalelist's Data</h3>
+              <div className="space-y-6">
+                <div className="bg-[#151b28] p-8 rounded-3xl border border-gray-800">
+                  <p className="text-gray-300 italic mb-6 leading-relaxed text-sm">
+                    "I love Scalelist — Cannot recommend it enough. It does EVERYTHING you need it to do really well. Easy to use/ navigate and Arnaud and colleagues are always there to lend a hand. Built by people who really care about their product."
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-700 flex-shrink-0">
+                      <img src="https://picsum.photos/seed/chris/100/100" alt="Chris Hackett" referrerPolicy="no-referrer" className="w-full h-full object-cover" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-white">Chris Hackett</p>
+                      <p className="text-[10px] text-gray-500">CEO & Founder @ Firm Growth</p>
+                    </div>
+                  </div>
                 </div>
-              ))}
+
+                <div className="bg-[#151b28] p-8 rounded-3xl border border-gray-800">
+                  <p className="text-gray-300 italic mb-6 leading-relaxed text-sm">
+                    "We use Scalelist everyday. It's a really good product that helps us find our prospects' emails and phone numbers."
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-700 flex-shrink-0">
+                      <img src="https://picsum.photos/seed/baptiste/100/100" alt="Baptiste Graffin" referrerPolicy="no-referrer" className="w-full h-full object-cover" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-white">Baptiste Graffin</p>
+                      <p className="text-[10px] text-gray-500">VP of Sales APAC @ Happydemics</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -389,7 +502,7 @@ export default function App() {
           </h2>
 
           <div className="flex justify-center gap-4 mb-16">
-            {['For Sales Teams', 'For Outbound Agencies', 'For Founders'].map((tab) => (
+            {Object.keys(USE_CASES).map((tab) => (
               <button 
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -404,31 +517,28 @@ export default function App() {
             ))}
           </div>
 
-          <div className="bg-white border border-gray-100 rounded-[2.5rem] shadow-xl p-8 md:p-12 text-left">
-            <div className="grid lg:grid-cols-12 gap-12">
+          <motion.div 
+            key={activeTab}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white border border-gray-100 rounded-[2.5rem] shadow-xl p-8 md:p-12 text-left"
+          >
+            <div className="grid lg:grid-cols-12 gap-12 items-center">
               <div className="lg:col-span-4">
                 <div className="relative">
-                  <ImagePlaceholder label="FELIX FRANK - FOUNDER AT STACKOPTIMISE" className="aspect-[3/4] bg-gray-50" />
+                  <ImagePlaceholder label={currentCase.testimonial.imageLabel} className="aspect-[3/4] bg-gray-50" />
                   <div className="absolute bottom-4 left-4 right-4 bg-gray-900 text-white p-6 rounded-2xl shadow-xl">
-                    <p className="text-sm font-medium italic mb-4">
-                      "We now reach buyers before they even talk to a competitor."
+                    <p className="text-sm font-bold mb-4 leading-relaxed">
+                      "{currentCase.testimonial.quote}"
                     </p>
-                    <p className="text-xs font-bold">Felix Frank</p>
-                    <p className="text-[10px] opacity-60 uppercase tracking-wider">FOUNDER AT STACKOPTIMISE</p>
+                    <p className="text-xs font-bold">{currentCase.testimonial.author}</p>
+                    <p className="text-[10px] opacity-60 uppercase tracking-wider mt-0.5">{currentCase.testimonial.role}</p>
                   </div>
                 </div>
               </div>
               <div className="lg:col-span-8">
-                <p className="text-lg font-medium text-gray-900 mb-12 leading-relaxed">
-                  <span className="font-bold">Sales teams</span> can build targeted lists in seconds, reach the right decision makers with verified emails and mobile numbers, and book more meetings from the same activity.
-                </p>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  {[
-                    { title: "Data Reps Can Trust", desc: "Give reps verified emails and mobile numbers so they stop fixing lists and focus on booking meetings.", id: "01" },
-                    { title: "Talk to buyers who are in market", desc: "Use intent-style filters like buying intent, headcount growth in a specific department, and tech usage to target companies that are actively looking for your product.", id: "02" },
-                    { title: "Prospecting that feels easy", desc: "Build targeted lists in seconds, export clean data or capture contacts with the extension, then send directly from your sequencer without manual cleanup.", id: "03" },
-                    { title: "Pay only for good data", desc: "You only pay for verified emails and mobile numbers, at a fair price, so you can give every rep more leads without blowing up the budget.", id: "04" }
-                  ].map((item, i) => (
+                <div className="flex flex-col gap-6">
+                  {currentCase.features.map((item: any, i: number) => (
                     <div key={i} className="bg-gray-50 p-8 rounded-2xl relative group hover:bg-white hover:shadow-lg transition-all border border-transparent hover:border-gray-100">
                       <span className="absolute top-6 right-6 text-[10px] font-bold text-gray-300 group-hover:text-blue-200 transition-colors">{item.id}</span>
                       <h4 className="font-bold text-gray-900 mb-3">{item.title}</h4>
@@ -438,11 +548,12 @@ export default function App() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Final CTA */}
+
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-stone-50 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
